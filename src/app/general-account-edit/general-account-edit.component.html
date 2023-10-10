@@ -1,0 +1,24 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Edit Account</mat-card-title>
+      
+    </mat-card-header>
+  
+    <mat-card-content>
+      <div class="d-flex flex-column">
+            
+        <!--   <mat-form-field appearance="outline">
+               <mat-label>Account Id</mat-label>
+               <input matInput formControlName="accountid">
+           </mat-form-field>-->
+           <div>
+             <label for="account" class="label-style" >Account Name</label>
+               <input class="input-style input-style:focus" id="account" type="text" [(ngModel)]="data[0]" name="editaccountname" >
+             </div>
+           <button class="btn btn-primary submit my-2" (click)="onDetailsUpdate(data)">Update</button>
+           <p class="error mx-2" >{{errorMsg}}</p>
+     </div>
+    </mat-card-content>
+  
+   
+  </mat-card>

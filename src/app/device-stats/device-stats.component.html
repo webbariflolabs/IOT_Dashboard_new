@@ -1,0 +1,201 @@
+
+<body class="main-container">
+    <mat-toolbar class="mb-0 d-flex flex-row justify-content-between" >
+      
+    <div class="d-flex flex-row">
+      <div class="d-flex flex-column justify-content-center" (click)="opened=!opened">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
+      <div class="d-flex flex-row">
+      
+        <button class="home-button" ><h1 class="mb-0 mt-2 top-heading">Bariflo Labs</h1></button>
+    </div>
+    </div>
+
+        <div class="d-flex flex-row">
+          <button class="name-icon mx-3" [matMenuTriggerFor]="menu">{{(userNameProfile | uppercase).split(' ')[0][0]+(userNameProfile| uppercase).split(' ')[1][0]}}</button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>Profile</button>
+            <button mat-menu-item (click)="onLogout()">Logout</button>
+          </mat-menu>
+          
+          <button class="username" [matMenuTriggerFor]="menu">{{(userNameProfile | uppercase).split(' ')[0][0]+(userNameProfile.split(' ')[0].slice(1))+' '+(userNameProfile| uppercase).split(' ')[1][0]+(userNameProfile.split(' ')[1].slice(1))}} </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>Profile</button>
+            <button mat-menu-item (click)="onLogout1()">Logout</button>
+          </mat-menu>
+        </div>
+    </mat-toolbar>
+   
+       <mat-sidenav-container >
+           <mat-sidenav mode="side" [(opened)]="opened">
+            <mat-nav-list>  
+              <!-- Menu item with a sub-menu -->
+             <!-- <mat-list-item>
+                <a mat-list-item href="dashboard"><i class="bi bi-house-fill icon-size"></i> Accounts</a>
+              </mat-list-item>
+              <hr class="my-0">-->
+              <mat-list-item>
+                <a mat-list-item href="admin-users"><i class="bi bi-people-fill"></i> Users</a>
+              </mat-list-item>
+              <hr class="my-0">
+              <!-- <mat-list-item>
+                <a mat-list-item href="admin-new-device"><i class="bi bi-plus-square-fill"></i> New Devices</a>
+              </mat-list-item>
+              <hr class="my-0"> -->
+              
+              <mat-list-item class="mx-3" (click)="toggleSubMenu('submenu1')">
+                <span><i class="bi bi-gear-fill"></i> Settings</span>
+                
+              </mat-list-item>
+              <mat-list-item *ngIf="isSubMenuOpen('submenu1')">
+                <a mat-list-item href="admin-device-types">Device Types</a>
+               
+              </mat-list-item>
+            </mat-nav-list>
+           </mat-sidenav>
+           <mat-sidenav-content>
+            <select class="primary mx-2 p-2" (change)="onSelectChange($event)">
+              <option value="" selected disabled style="display:none;">Time Period</option>
+              <option value="1">1 Day</option>
+              <option value="7">7 Days</option>
+              <option value="15">15 Days</option>
+              <option value="30">30 Days</option>
+              <option value="custom">Custom</option>
+            </select>
+            
+            <!-- <button class="btn btn-outline-primary refresh mx-2" (click)="onRefresh()">Refresh</button> -->
+            <button class="btn btn-primary mx-5" (click)="onBackStats()">Back</button>
+            <hr>
+           <div class="row">
+             <div class="col-lg-6">
+              <h1>Line chart</h1>
+              <mat-card>
+                <div class="d-flex flex-row justify-content-between">
+               <mat-card-header>PH</mat-card-header>
+          
+               <select class="download-button primary p-2 mx-2" (change)="onDownloadData($event,'Ph')">
+                <option value="" disabled selected style="display:none;">Download</option>
+
+                <option value="7">7 Days</option>
+                   <option value="30">30 Days</option>
+                   <option value="90">90 Days</option>
+                <option value="custom">Custom</option>
+                
+               </select>
+               
+              </div>
+               <mat-card-content>
+                 <canvas #canvasElement></canvas>
+               </mat-card-content>
+              </mat-card>
+             </div>
+             <div class="col-lg-6">
+              <h1>Line chart</h1>
+              <mat-card>
+                <div class="d-flex flex-row justify-content-between">
+                  <mat-card-header>Voltage</mat-card-header>
+             
+                  <select class="download-button primary p-2 mx-2" (change)="onDownloadData($event,'voltage')">
+                   <option value="" disabled selected style="display:none;">Download</option>
+                   <option value="7">7 Days</option>
+                   <option value="30">30 Days</option>
+                   <option value="90">90 Days</option>
+                   <option value="custom">Custom</option>
+                  </select>
+                 </div>
+               <mat-card-content>
+                 <canvas #canvasElement></canvas>
+               </mat-card-content>
+              </mat-card>
+             </div>
+             <div class="col-lg-6 mt-2">
+              <h1>Line chart</h1>
+              <mat-card>
+                <div class="d-flex flex-row justify-content-between">
+                  <mat-card-header>Current</mat-card-header>
+             
+                  <select class="download-button primary p-2 mx-2" (change)="onDownloadData($event,'Current')">
+                   <option value="" disabled selected style="display:none;">Download</option>
+   
+                   <option value="7">7 Days</option>
+                   <option value="30">30 Days</option>
+                   <option value="90">90 Days</option>
+                   <option value="custom">Custom</option>
+                  </select>
+                 </div>
+               <mat-card-content>
+                 <canvas #canvasElement></canvas>
+               </mat-card-content>
+              </mat-card>
+             </div>
+             <div class="col-lg-6 mt-2">
+              <h1>Line chart</h1>
+              <mat-card>
+                <div class="d-flex flex-row justify-content-between">
+                  <mat-card-header>ORP</mat-card-header>
+             
+                  <select class="download-button primary p-2 mx-2" (change)="onDownloadData($event,'ORP')">
+                   <option value="" disabled selected style="display:none;">Download</option>
+   
+                   <option value="7">7 Days</option>
+                   <option value="30">30 Days</option>
+                   <option value="90">90 Days</option>
+                   <option value="custom">Custom</option>
+                  </select>
+                 </div>
+               <mat-card-content>
+                 <canvas  #canvasElement></canvas>
+               </mat-card-content>
+              </mat-card>
+             </div>
+             <div class="col-lg-6 mt-2 mb-4">
+              <h1>Line chart</h1>
+              <mat-card>
+                <div class="d-flex flex-row justify-content-between">
+                  <mat-card-header>Temperature</mat-card-header>
+             
+                  <select class="download-button primary p-2 mx-2" (change)="onDownloadData($event,'CPU_TEMPERATURE')">
+                   <option value="" disabled selected style="display:none;">Download</option>
+   
+                   <option value="7">7 Days</option>
+                   <option value="30">30 Days</option>
+                   <option value="90">90 Days</option>
+                   <option value="custom">Custom</option>
+                  </select>
+                 </div>
+               <mat-card-content>
+                 <canvas  #canvasElement></canvas>
+               </mat-card-content>
+              </mat-card>
+             </div>
+             <div class="col-lg-6 mt-2 mb-4">
+              <h1>Line chart</h1>
+              <mat-card>
+                <div class="d-flex flex-row justify-content-between">
+                  <mat-card-header>DO</mat-card-header>
+             
+                  <select class="download-button primary p-2 mx-2"(change)="onDownloadData($event,'DO')">
+                   <option value="" disabled selected style="display:none;">Download</option>
+   
+                   <option value="7">7 Days</option>
+                   <option value="30">30 Days</option>
+                   <option value="90">90 Days</option>
+                   <option value="custom">Custom</option>
+                  </select>
+                 </div>
+               <mat-card-content>
+                 <canvas  #canvasElement></canvas>
+               </mat-card-content>
+              </mat-card>
+             </div>
+           </div>
+          </mat-sidenav-content>
+  
+       </mat-sidenav-container>
+   
+   
+   </body>
+  

@@ -1,0 +1,22 @@
+
+<h1 class="heading">Select Date Range</h1>
+<hr>
+<div class="d-flex flex-row justify-content-between mx-3">
+    <mat-form-field >
+        <input matInput [(ngModel)]="fromDate" [matDatepicker]="fromDatePicker" placeholder="From Date">
+        <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #fromDatePicker></mat-datepicker>
+      </mat-form-field>
+      
+      <mat-form-field class="mr-2">
+        <input matInput [(ngModel)]="toDate" [matDatepicker]="toDatePicker" placeholder="To Date">
+        <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #toDatePicker></mat-datepicker>
+      </mat-form-field>
+       
+</div>
+
+<div class="d-flex flex-row justify-content-end mx-3 my-3 ">
+<button (click)="onFilter()" class="btn btn-primary">Download</button>
+
+</div>
